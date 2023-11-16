@@ -153,8 +153,8 @@ printCacheStats()
       printf("  avg L2-cache access time:         -\n");
     }
   }
-  printf("  total compulsory misses:   %10lu\n", compulsory_miss);
-  printf("  total other misses:   %10lu\n", other_miss);
+  printf("  total compulsory misses: %10lu\n", compulsory_miss);
+  printf("  total other misses:      %10lu\n", other_miss);
 }
 
 // Set the defaults for the Cache Simulator

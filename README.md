@@ -1,6 +1,6 @@
 # Project 2:  The Cache Simulator
 
-In the second edition of our project, we are now going to simulate the behaviour of the cache in a processor. This cache will be somewhat similar to the cache present in a real processor. You will simulate an Instruction cache, a Data Cache and a Level 2 cache which is common for both instructions and data. 
+In the second project, we are now going to simulate the behavior of the cache in a processor. This cache will be somewhat similar to the cache present in a real processor. You will simulate an Instruction cache, a Data Cache and a Level 2 cache which is common for both instructions and data. 
 
 ## The Assignment:
 We have given a framework for running the cache functions in `main.c`. You will create required data structures for the 3 caches, and functions to access these caches. Each cache will have 3 configuration settings - number of sets, associativity and hit time. You will need to calculate the statistics based on your understanding of the cache.
@@ -19,6 +19,7 @@ The options are as follows:
   --dcache=sets:assoc:hit    D-cache Parameters
   --l2cache=sets:assoc:hit   L2-cache Parameters
   --inclusive                Makes L2-cache be inclusive
+  --prefetch                 Enable Prefetching
   --blocksize=size           Block/Line size
   --memspeed=latency         Latency to Main Memory
 ```
@@ -40,7 +41,7 @@ The testing can be done using the traces given to you in the repository. There a
 
 You need to make sure that your output matches this configuration output with 2% of error margin. There will be some more hidden test cases which will test the simulator against some other configurations. 
 
-You can test using the same docker image as Project 1, the image name is `gandhardesh13/240a_base:v2` The commands to run this would be the same as before: `docker pull gandhardesh13/240a_base:v2` to pull the image, `docker run --rm -it -v <path on local machine>/<path on ubuntu> gandhardesh13/240a_base:v2` to run it on your local machine.
+You can test using the same docker image as Project 1, the image name is `TODO` The commands to run this would be the same as before: `docker pull TODO` to pull the image, `docker run -it -v TODO` to run it on your local machine.
 
 ## Traces
 

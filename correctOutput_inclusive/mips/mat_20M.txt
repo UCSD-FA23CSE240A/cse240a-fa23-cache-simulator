@@ -1,0 +1,43 @@
+Student Name:   Jiayan Dong
+Student ID:     A16593051
+Student email:  jid001@ucsd.edu
+Simulator Memory Hierarchy:
+  I$ Configuration:
+    Size:  32 KB
+    Sets:  128
+    Assoc: 2
+    Lat:   2 Cycles
+  D$ Configuration:
+    Size:  32 KB
+    Sets:  64
+    Assoc: 4
+    Lat:   2 Cycles
+  L2$ Configuration:
+    Size:  128 KB
+    Sets:  128
+    Assoc: 8
+    Lat:   50 Cycles
+    Inclusive: Yes
+  Block Size: 128 Bytes
+  Memspeed:   100 Cycles
+Cache Statistics:
+  total I-cache accesses:    18398965
+  total I-cache misses:             5
+  total I-cache penalties:        650
+  I-cache miss rate:                0.00%
+  avg I-cache access time:          2.00 cycles
+  total D-cache accesses:     1601035
+  total D-cache misses:         84817
+  total D-cache penalties:    7582350
+  D-cache miss rate:                5.30%
+  avg D-cache access time:          6.74 cycles
+  total L2-cache accesses:      84822
+  total L2-cache misses:        33419
+  total L2-cache penalties:   3341900
+  L2-cache miss rate:              39.40%
+  avg L2-cache access time:        89.40 cycles
+  total compulsory misses:          197
+  total other misses:       118044
+Total Memory accesses:  20000000
+Total Memory penalties: 47583000
+avg Memory access time:          2.38 cycles

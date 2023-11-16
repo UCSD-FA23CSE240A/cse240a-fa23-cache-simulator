@@ -1,6 +1,6 @@
-Student Name:   SOLUTION
-Student ID:     PID
-Student email:  EMAIL
+Student Name:   Jiayan Dong
+Student ID:     A16593051
+Student email:  jid001@ucsd.edu
 Simulator Memory Hierarchy:
   I$ Configuration:
     Size:  32 KB
@@ -17,7 +17,7 @@ Simulator Memory Hierarchy:
     Sets:  128
     Assoc: 8
     Lat:   50 Cycles
-    Inclusive: No
+    Inclusive: Yes
   Block Size: 128 Bytes
   Memspeed:   100 Cycles
 Cache Statistics:
@@ -36,6 +36,8 @@ Cache Statistics:
   total L2-cache penalties:     16900
   L2-cache miss rate:              99.41%
   avg L2-cache access time:       149.41 cycles
+  total compulsory misses:          202
+  total other misses:          137
 Total Memory accesses:  150035173
 Total Memory penalties: 300095746
 avg Memory access time:          2.00 cycles
