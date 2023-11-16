@@ -27,6 +27,7 @@ usage()
   fprintf(stderr," --dcache=sets:assoc:hit    D-cache Parameters\n");
   fprintf(stderr," --l2cache=sets:assoc:hit   L2-cache Parameters\n");
   fprintf(stderr," --inclusive                Makes L2-cache be inclusive\n");
+  fprintf(stderr," --prefetch                 Enable Prefetching\n");
   fprintf(stderr," --blocksize=size           Block/Line size\n");
   fprintf(stderr," --memspeed=latency         Latency to Main Memory\n");
 }
@@ -47,6 +48,8 @@ handle_option(char *arg)
     sscanf(arg+10,"%u:%u:%u", &l2cacheSets, &l2cacheAssoc, &l2cacheHitTime);
   } else if (!strcmp(arg,"--inclusive")) {
     inclusive = TRUE;
+  } else if (!strcmp(arg,"--prefetch")) {
+    prefetch = TRUE;
   } else if (!strncmp(arg,"--blocksize=",12)) {
     sscanf(arg+12,"%u", &blocksize);
   } else if (!strncmp(arg,"--memspeed=",11)) {
@@ -150,6 +153,8 @@ printCacheStats()
       printf("  avg L2-cache access time:         -\n");
     }
   }
+  printf("  total compulsory misses:   %10lu\n", compulsory_miss);
+  printf("  total other misses:   %10lu\n", other_miss);
 }
 
 // Set the defaults for the Cache Simulator
@@ -171,6 +176,7 @@ set_defaults()
   l2cacheAssoc    = 0;
   l2cacheHitTime  = 0;
   inclusive       = 0;
+  prefetch        = 0;
   blocksize       = 16;
   memspeed        = 50;
 }
@@ -229,10 +235,12 @@ main(int argc, char *argv[])
     // Direct the memory access to the appropriate cache
     if (i_or_d == 'I') {
       totalPenalties += icache_access(addr);
-      icache_prefetch(icache_prefetch_addr(addr));
+      if(prefetch == TRUE)
+        icache_prefetch(addr);
     } else if (i_or_d == 'D') {
       totalPenalties += dcache_access(addr);
-      dcache_prefetch(dcache_prefetch_addr(addr));
+      if(prefetch == TRUE)
+        dcache_prefetch(addr);
     } else {
       fprintf(stderr,"Input Error '%c' must be either 'I' or 'D'\n", i_or_d);
       exit(1);
@@ -253,6 +261,7 @@ main(int argc, char *argv[])
   }
 
   // Cleanup
+  clean_cache();
   fclose(stream);
   free(buf);
 

@@ -32,6 +32,8 @@ uint32_t l2cacheAssoc;   // Associativity of the L2$
 uint32_t l2cacheHitTime; // Hit Time of the L2$
 uint32_t inclusive;      // Indicates if the L2 is inclusive
 
+uint32_t prefetch;       // Indicate if prefetching is enabled
+
 uint32_t blocksize;      // Block/Line size
 uint32_t memspeed;       // Latency of Main Memory
 
@@ -50,6 +52,9 @@ uint64_t dcachePenalties;  // D$ penalties
 uint64_t l2cacheRefs;      // L2$ references
 uint64_t l2cacheMisses;    // L2$ misses
 uint64_t l2cachePenalties; // L2$ penalties
+
+uint64_t compulsory_miss;  // Compulsory misses on all caches
+uint64_t other_miss;       // Other misses (Conflict / Capacity miss) on all caches
 
 //------------------------------------//
 //        Cache Data Structures       //
@@ -78,9 +83,22 @@ init_cache()
   l2cacheRefs       = 0;
   l2cacheMisses     = 0;
   l2cachePenalties  = 0;
+
+  compulsory_miss = 0;
+  other_miss = 0;
   
   //
   //TODO: Initialize Cache Simulator Data Structures
+  //
+}
+
+// Clean Up the Cache Hierarchy
+//
+void
+clean_cache()
+{
+  //
+  //TODO: Clean Up Cache Simulator Data Structures
   //
 }
 
@@ -118,4 +136,24 @@ l2cache_access(uint32_t addr)
   //TODO: Implement L2$
   //
   return memspeed;
+}
+
+// Perform a prefetch operation to I$ for the address 'addr'
+// Notice 'addr' here is the address of last memory access
+void
+icache_prefetch(uint32_t addr)
+{
+  //
+  //TODO: Implement I$ prefetch operation
+  //
+}
+
+// Perform a prefetch operation to D$ for the address 'addr'
+// Notice 'addr' here is the address of last memory access
+void
+dcache_prefetch(uint32_t addr)
+{
+  //
+  //TODO: Implement D$ prefetch operation
+  //
 }

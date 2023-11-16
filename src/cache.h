@@ -42,6 +42,7 @@ extern uint32_t l2cacheSets;    // Number of sets in the L2$
 extern uint32_t l2cacheAssoc;   // Associativity of the L2$
 extern uint32_t l2cacheHitTime; // Hit Time of the L2$
 extern uint32_t inclusive;      // Indicates if the L2 is inclusive
+extern uint32_t prefetch;
 
 extern uint32_t blocksize;      // Block/Line size
 extern uint32_t memspeed;       // Latency of Main Memory
@@ -62,6 +63,9 @@ extern uint64_t l2cacheRefs;      // L2$ references
 extern uint64_t l2cacheMisses;    // L2$ misses
 extern uint64_t l2cachePenalties; // L2$ penalties
 
+extern uint64_t compulsory_miss;
+extern uint64_t other_miss;
+
 //------------------------------------//
 //      Cache Function Prototypes     //
 //------------------------------------//
@@ -69,6 +73,8 @@ extern uint64_t l2cachePenalties; // L2$ penalties
 // Initialize the predictor
 //
 void init_cache();
+
+void clean_cache();
 
 // Perform a memory access through the icache interface for the address 'addr'
 // Return the access time for the memory operation
@@ -88,9 +94,5 @@ uint32_t l2cache_access(uint32_t addr);
 void icache_prefetch(uint32_t addr);
 
 void dcache_prefetch(uint32_t addr);
-
-uint32_t icache_prefetch_addr(uint32_t addr);
-
-uint32_t dcache_prefetch_addr(uint32_t addr);
 
 #endif
