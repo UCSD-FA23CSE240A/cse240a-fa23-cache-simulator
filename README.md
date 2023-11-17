@@ -19,12 +19,11 @@ Once you have created the binary, you can run it with the following command:
 The options are as follows:
 ```
   --help                     Print this message
-  --icache=sets:assoc:hit    I-cache Parameters
-  --dcache=sets:assoc:hit    D-cache Parameters
-  --l2cache=sets:assoc:hit   L2-cache Parameters
+  --icache=sets:assoc:blocksize:hit    I-cache Parameters
+  --dcache=sets:assoc:blocksize:hit    D-cache Parameters
+  --l2cache=sets:assoc:blocksize:hit   L2-cache Parameters
   --inclusive                Makes L2-cache be inclusive
   --prefetch                 Enable Prefetching
-  --blocksize=size           Block/Line size
   --memspeed=latency         Latency to Main Memory
 ```
 
@@ -34,13 +33,13 @@ The testing can be done using the traces given to you in the repository. There a
    * D$: 32KB, 4-way, 2 cycles hit latency
    * L2: 128KB, 8-way, off-chip, 50 cycles hit latency, inclusive
    * 128B block size
-   * `./cache --icache=128:2:2 --dcache=64:4:2 --l2cache=128:8:50 --blocksize=128 --memspeed=100`
+   * `./cache --icache=128:2:128:2 --dcache=64:4:128:2 --l2cache=128:8:128:50 --memspeed=100`
 2. **Alpha A21264** - [Reference Manual](https://course.ece.cmu.edu/~ece447/s15/lib/exe/fetch.php?media=21264hrm.pdf):
    * I$: 64KB, 2-way, 2 cycles hit latency
    * D$: 64KB, 4-way, 2 cycles hit latency
    * L2: 8MB, direct-mapped, off-chip, 50 cycles hit latency, inclusive
    * 64B block size
-   * `./cache --icache=512:2:2 --dcache=256:4:2 --l2cache=16384:8:50 --blocksize=64 --memspeed=100`
+   * `./cache --icache=512:2:64:2 --dcache=256:4:64:2 --l2cache=16384:8:64:50 --memspeed=100`
 
 
 You need to make sure that your output matches this configuration output with 2% of error margin. There will be some more hidden test cases which will test the simulator against some other configurations. 
@@ -48,29 +47,35 @@ You need to make sure that your output matches this configuration output with 2%
 We provide docker environment as the autograder, the image name is `TODO` The commands to run this would be the same as before: `docker pull TODO` to pull the image, `docker run -it -v TODO` to run it on your local machine.
 
 ## Prefetching
-You also need implement prefetching that enhance the performance of the cache access. Your goal would be to get at least some performance improvement on some traces with some cache setup.
+You also need implement prefetching that enhance the performance of the cache access. 
+
+- You're **allowed** to prefetch **one** additional cache line per memory access and you can assume the prefetching operation is instantaneous (the access time is not counted). 
+- You're **not allowed** to create additional storage (prefetch buffer) to store the prefetched data, but you can have some data structure to identity the prefetching pattern.
+
+The baseline prefetcher in the starter code is next line prefetcher, and you goal is to create a prefetcher that is better than this.
 
 ## Traces
 
-Your simulator will model a cache hierarchy based on traces of real programs.
-Each line in the trace file contains the address of a memory access in hex as
-well as where the access should be directed, either to the I$ (I) or D$ (D).
+Your simulator will model a cache hierarchy based on traces of real programs.Each line in the trace file contains the program counter of the memory access instruction, the address of a memory access in hex as well as where the access should be directed, either to the I\$ (I) or D\$ (D), and either the access is READ (R) or WRITE (W).
 
 
 ```
-<Address> <I or D>
+<Program Counter> <Address> <I or D> <R or W>
 
-Sample Trace from tsman.bz2:
-0x648 I
-0x64c I
-0x650 I
-0x654 I
-0x658 I
-0x40868 D
-0x65c I
-0x660 I
-0x664 I
-0x668 I
+Sample Trace from bzip2.bz2:
+0x790dc030	0x790dc030	I	R
+0x790dc034	0x790dc034	I	R
+0x790dc034	0x3970a3f0	D	W
+0x790dc035	0x790dc035	I	R
+0x790dc038	0x790dc038	I	R
+0x790dc038	0x3970a3e8	D	W
+0x790dc03a	0x790dc03a	I	R
+0x790dc03a	0x3970a3e0	D	W
+0x790dc03c	0x790dc03c	I	R
+0x790dc03c	0x3970a3d8	D	W
+0x790dc03e	0x790dc03e	I	R
+0x790dc03e	0x3970a3d0	D	W
+0x790dc040	0x790dc040	I	R
 ```
 
 
@@ -82,8 +87,8 @@ We will be taking only your cache.c and cache.h files. You can add the entire re
 
 ```
 ├── 📂 src
-|   ├── 📄 cache.c
-|   ├── 📄 cache.h
+|   ├── 📄 cache.cpp
+|   ├── 📄 cache.hpp
 ```
 
 You can, of course, submit the entire repository, but we will look for only these files, and all the remaining files used will be our own. We will run the following commands for grading: `make clean` followed by `make`
