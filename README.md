@@ -7,7 +7,11 @@ We have given a framework for running the cache functions in `main.c`. You will 
 
 
 ## Get Started
-Download the code from this repository `https://github.com/Brandon451/cse240a-cache-simulator`. Once you have checked out this repository, start adding your code into this. To compile, run the following command from within the src directory: make all or make. This will compile your code and generate output files. You will also get a executable binary called "cache". 
+Accept the assignment in Github Classroom.
+
+https://classroom.github.com/a/dWnjIYGa
+
+Once you have checked out this repository, start adding your code into this. To compile, run the following command from within the src directory: make all or make. This will compile your code and generate output files. You will also get a executable binary called "cache". 
 
 ## Testing
 Once you have created the binary, you can run it with the following command:
@@ -28,20 +32,23 @@ The testing can be done using the traces given to you in the repository. There a
 1. **MIPS R10K** - [Reference Manual](https://ieeexplore.ieee.org/abstract/document/491460?casa_token=xRyemPMXCU4AAAAA:qMm86PcKveY_y6TAegQChllzSccO4b6ILZRKKEeO_ml4HjQfav6hBbHDJeHR0TeXZCUPyjOpFQ):
    * I$: 32KB, 2-way, 2 cycles hit latency
    * D$: 32KB, 4-way, 2 cycles hit latency
-   * L2: 128KB, 8-way, off-chip, 50 cycles hit latency, inclusive(we are not testing inclusivity)
+   * L2: 128KB, 8-way, off-chip, 50 cycles hit latency, inclusive
    * 128B block size
    * `./cache --icache=128:2:2 --dcache=64:4:2 --l2cache=128:8:50 --blocksize=128 --memspeed=100`
 2. **Alpha A21264** - [Reference Manual](https://course.ece.cmu.edu/~ece447/s15/lib/exe/fetch.php?media=21264hrm.pdf):
    * I$: 64KB, 2-way, 2 cycles hit latency
    * D$: 64KB, 4-way, 2 cycles hit latency
-   * L2: 8MB, direct-mapped, off-chip, 50 cycles hit latency, inclusive(we are not testing inclusivity)
+   * L2: 8MB, direct-mapped, off-chip, 50 cycles hit latency, inclusive
    * 64B block size
    * `./cache --icache=512:2:2 --dcache=256:4:2 --l2cache=16384:8:50 --blocksize=64 --memspeed=100`
 
 
 You need to make sure that your output matches this configuration output with 2% of error margin. There will be some more hidden test cases which will test the simulator against some other configurations. 
 
-You can test using the same docker image as Project 1, the image name is `TODO` The commands to run this would be the same as before: `docker pull TODO` to pull the image, `docker run -it -v TODO` to run it on your local machine.
+We provide docker environment as the autograder, the image name is `TODO` The commands to run this would be the same as before: `docker pull TODO` to pull the image, `docker run -it -v TODO` to run it on your local machine.
+
+## Prefetching
+You also need implement prefetching that enhance the performance of the cache access. Your goal would be to get at least some performance improvement on some traces with some cache setup.
 
 ## Traces
 
@@ -71,7 +78,7 @@ Sample Trace from tsman.bz2:
 This assignment is to be done individually by every student. Please make sure you do not copy a single line of code from any source. Not from other students, not from the web, not from anywhere. We have very sophisticated tools to discover if you did. This is a graduate class and we have the very highest expectations for integrity. You should expect that if you do so, even in very small amounts, you will be caught, you will be asked to leave the program, and if an international student, required to leave the country. 
 
 ## Turning it in
-We will be taking only your predictor.c and predictor.h files. You can add the entire repository, but you need to have a folder structure like the following at least:
+We will be taking only your cache.c and cache.h files. You can add the entire repository, but you need to have a folder structure like the following at least:
 
 ```
 ├── 📂 src
