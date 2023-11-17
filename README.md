@@ -42,9 +42,9 @@ The testing can be done using the traces given to you in the repository. There a
    * `./cache --icache=512:2:64:2 --dcache=256:4:64:2 --l2cache=16384:8:64:50 --memspeed=100`
 
 
-You need to make sure that your output matches this configuration output with 2% of error margin. There will be some more hidden test cases which will test the simulator against some other configurations. 
+You need to make sure that your output matches this configuration output with 2% of error margin. There will be some more hidden test cases which will test the simulator against some other configurations and other traces. 
 
-We provide docker environment as the autograder, the image name is `TODO` The commands to run this would be the same as before: `docker pull TODO` to pull the image, `docker run -it -v TODO` to run it on your local machine.
+We use the docker image provided by gradescope to build autograder, so you can test on it to make sure your code work on the same environment as the autograder. The image name is `gradescope/autograder-base` The commands to run this would be the same as before: `docker pull gradescope/autograder-base` to pull the image, `docker run -i -t gradescope/autograder-base /bin/bash` to run it on your local machine.
 
 ## Prefetching
 You also need implement prefetching that enhance the performance of the cache access. 
