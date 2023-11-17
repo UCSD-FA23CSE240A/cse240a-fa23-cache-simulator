@@ -1,0 +1,46 @@
+Student Name:   NAME
+Student ID:     PID
+Student email:  EMAIL
+Simulator Memory Hierarchy:
+  I$ Configuration:
+    Size:  64 KB
+    Sets:  512
+    Assoc: 2
+Blocksize: 64 B
+    Lat:   2 Cycles
+  D$ Configuration:
+    Size:  64 KB
+    Sets:  256
+    Assoc: 4
+Blocksize: 64 B
+    Lat:   2 Cycles
+  L2$ Configuration:
+    Size:  8192 KB
+    Sets:  16384
+    Assoc: 8
+Blocksize: 64 B
+    Lat:   50 Cycles
+    Inclusive: No
+  Prefetch:   Yes
+  Memspeed:   100 Cycles
+Cache Statistics:
+  total I-cache accesses:    14023083
+  total I-cache misses:          1268
+  total I-cache penalties:     150700
+  I-cache miss rate:                0.01%
+  avg I-cache access time:          2.01 cycles
+  total D-cache accesses:     5976917
+  total D-cache misses:          7979
+  total D-cache penalties:     934050
+  D-cache miss rate:                0.13%
+  avg D-cache access time:          2.16 cycles
+  total L2-cache accesses:       9247
+  total L2-cache misses:         6224
+  total L2-cache penalties:    622400
+  L2-cache miss rate:              67.31%
+  avg L2-cache access time:       117.31 cycles
+  total compulsory misses:       5603
+  total other misses:            9868
+Total Memory accesses:  20000000
+Total Memory penalties: 41084750
+avg Memory access time:          2.05 cycles

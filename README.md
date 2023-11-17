@@ -31,16 +31,17 @@ The testing can be done using the traces given to you in the repository. There a
 1. **MIPS R10K** - [Reference Manual](https://ieeexplore.ieee.org/abstract/document/491460?casa_token=xRyemPMXCU4AAAAA:qMm86PcKveY_y6TAegQChllzSccO4b6ILZRKKEeO_ml4HjQfav6hBbHDJeHR0TeXZCUPyjOpFQ):
    * I$: 32KB, 2-way, 2 cycles hit latency
    * D$: 32KB, 4-way, 2 cycles hit latency
-   * L2: 128KB, 8-way, off-chip, 50 cycles hit latency, inclusive
+   * L2: 128KB, 8-way, off-chip, 50 cycles hit latency
    * 128B block size
    * `./cache --icache=128:2:128:2 --dcache=64:4:128:2 --l2cache=128:8:128:50 --memspeed=100`
 2. **Alpha A21264** - [Reference Manual](https://course.ece.cmu.edu/~ece447/s15/lib/exe/fetch.php?media=21264hrm.pdf):
    * I$: 64KB, 2-way, 2 cycles hit latency
    * D$: 64KB, 4-way, 2 cycles hit latency
-   * L2: 8MB, direct-mapped, off-chip, 50 cycles hit latency, inclusive
+   * L2: 8MB, direct-mapped, off-chip, 50 cycles hit latency
    * 64B block size
    * `./cache --icache=512:2:64:2 --dcache=256:4:64:2 --l2cache=16384:8:64:50 --memspeed=100`
 
+Please note that we **will not** test on inclusive L2 cache, so you can assume non-inclusive L2 by default. But you're welcome to inclusive L2 on your own.
 
 You need to make sure that your output matches this configuration output with 2% of error margin. There will be some more hidden test cases which will test the simulator against some other configurations and other traces. 
 
