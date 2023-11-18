@@ -37,7 +37,7 @@ The testing can be done using the traces given to you in the repository. There a
 2. **Alpha A21264** - [Reference Manual](https://course.ece.cmu.edu/~ece447/s15/lib/exe/fetch.php?media=21264hrm.pdf):
    * I$: 64KB, 2-way, 2 cycles hit latency
    * D$: 64KB, 4-way, 2 cycles hit latency
-   * L2: 8MB, direct-mapped, off-chip, 50 cycles hit latency
+   * L2: 8MB, 8-way, off-chip, 50 cycles hit latency
    * 64B block size
    * `./cache --icache=512:2:64:2 --dcache=256:4:64:2 --l2cache=16384:8:64:50 --memspeed=100`
 
