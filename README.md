@@ -3,7 +3,7 @@
 In the second project, we are now going to simulate the behavior of the cache in a processor. This cache will be somewhat similar to the cache present in a real processor. You will simulate an Instruction cache, a Data Cache and a Level 2 cache which is common for both instructions and data. 
 
 ## The Assignment:
-We have given a framework for running the cache functions in `main.c`. You will create required data structures for the 3 caches, and functions to access these caches. Each cache will have 3 configuration settings - number of sets, associativity and hit time. You will need to calculate the statistics based on your understanding of the cache.
+We have given a framework for running the cache functions in `main.cpp`. You will create required data structures for the 3 caches, and functions to access these caches. Each cache will have 3 configuration settings - number of sets, associativity and hit time. You will need to calculate the statistics based on your understanding of the cache.
 
 
 ## Get Started
@@ -84,7 +84,7 @@ Sample Trace from bzip2.bz2:
 This assignment is to be done individually by every student. Please make sure you do not copy a single line of code from any source. Not from other students, not from the web, not from anywhere. We have very sophisticated tools to discover if you did. This is a graduate class and we have the very highest expectations for integrity. You should expect that if you do so, even in very small amounts, you will be caught, you will be asked to leave the program, and if an international student, required to leave the country. 
 
 ## Turning it in
-We will be taking only your cache.c and cache.h files. You can add the entire repository, but you need to have a folder structure like the following at least:
+We will be taking only your cache.cpp and cache.hpp files. You can add the entire repository, but you need to have a folder structure like the following at least:
 
 ```
 ├── 📂 src
