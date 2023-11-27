@@ -11,9 +11,9 @@
 //
 // TODO:Student Information
 //
-const char *studentName = "NAME";
-const char *studentID   = "PID";
-const char *email       = "EMAIL";
+const char *studentName = "Shiva Surya Seelam";
+const char *studentID   = "A59024373";
+const char *email       = "sseelam@ucsd.edu";
 
 //------------------------------------//
 //        Cache Configuration         //
@@ -66,10 +66,111 @@ uint64_t other_miss;       // Other misses (Conflict / Capacity miss) on all cac
 //TODO: Add your Cache data structures here
 //
 
+// Block Data Structure Definition
+typedef struct cache_block
+{
+  struct cache_block *block_prev_block, *block_next_block;
+  uint32_t block_data;
+}cache_block;
+
+// Set Data Structure Definition
+typedef struct cache_set
+{
+  cache_block *set_first_block, *set_last_block;
+  uint32_t set_size;
+};
+
+// Defining Caches and other required parameters
+cache_set *icache;
+uint32_t ic_offset;
+uint32_t ic_index;
+
+cache_set *dcache;
+uint32_t dc_offset;
+uint32_t dc_index;
+
+cache_set *l2cache;
+uint32_t l2c_offset;
+uint32_t l2c_index;
+
+
 //------------------------------------//
 //          Cache Functions           //
 //------------------------------------//
 
+// Block add function -> adds "block" at the end of "set"
+
+void add_block(cache_set *set, cache_block *block){
+  if(set->set_size>0){ 
+    /// if this set is not empty add the block at the end of the set
+    set->set_last_block->block_next_block = block;
+    block->block_prev_block = set->set_last_block;
+    set->set_last_block = block;
+  }
+  else{
+    /// set is empty, add the block and update the pointers from NULL
+    set->set_first_block = block;
+    set->set_last_block = block;
+  }
+  (set->set_size)++;
+}
+
+// Block access function -> provides access to a block in the "set" at a given "index"
+
+cache_block* access_block(cache_set *set, int index){
+  if((index > set->set_size) | (index<0)){
+    /// If index is invalid return a NULL pointer
+    return NULL;
+  }
+
+  cache_block *temp_block = set->set_first_block;  /// points to the first block in the "set"
+  if(set->set_size==1){
+    /// Only one block in the set -> need to make the start and end pointers NULL
+    set->set_first_block = NULL;
+    set->set_last_block = NULL;
+  }
+  else if(index == (set->set_size)-1){
+    /// Last block in the set -> return last block and update the last second block of the set
+    temp_block = set->set_last_block;
+    set->set_last_block = set->set_last_block->block_prev_block;
+    set->set_last_block->block_next_block = NULL;
+  }
+  else if(index == 0){
+    /// First block in the set -> update the second block of the set
+    set->set_first_block = temp_block->block_next_block;
+    set->set_first_block->block_prev_block = NULL;
+  }
+  else {
+    for(int i=0; i<index;i++){  /// traversing through the linked list to reach the indexed block;
+      temp_block = temp_block->block_next_block;
+    }
+    /// Rearrange the pointers to remove the indexed block from the "set"
+    temp_block->block_prev_block->block_next_block = temp_block->block_next_block;
+    temp_block->block_next_block->block_prev_block = temp_block->block_prev_block;
+  }
+  temp_block->block_next_block = NULL;
+  temp_block->block_next_block = NULL;
+
+  return temp_block;
+}
+
+
+// Block remove function -> removes the first block from the "set"
+
+void remove_block(cache_set *set){
+  if (set->set_size <=0){
+    /// if set is empty nothing needs to be done
+    return;
+  }
+
+  cache_block *temp_block = set->set_first_block;
+  set->set_first_block = temp_block->block_next_block;
+  if(set->set_first_block){
+    set->set_first_block->block_prev_block = NULL;
+  } 
+  (set->set_size)--;
+  free(temp_block);
+}
 // Initialize the Cache Hierarchy
 //
 void
@@ -92,6 +193,32 @@ init_cache()
   //
   //TODO: Initialize Cache Simulator Data Structures
   //
+
+  icache = (cache_set*)malloc(sizeof(cache_set) * icacheSets);
+  dcache = (cache_set*)malloc(sizeof(cache_set) * dcacheSets);
+  l2cache = (cache_set*)malloc(sizeof(cache_set) * l2cacheSets);
+
+  int i=0;
+
+  for(i=0 ; i<icacheSets ; i++){
+    icache[i].set_first_block = NULL;
+    icache[i].set_last_block = NULL;
+    icache[i].set_size = 0;
+  }
+
+  for(i=0 ; i<icacheSets ; i++){
+    dcache[i].set_first_block = NULL;
+    dcache[i].set_last_block = NULL;
+    dcache[i].set_size = 0;
+  }
+
+  for(i=0 ; i<icacheSets ; i++){
+    l2cache[i].set_first_block = NULL;
+    l2cache[i].set_last_block = NULL;
+    l2cache[i].set_size = 0;
+  }
+
+
 }
 
 // Clean Up the Cache Hierarchy
